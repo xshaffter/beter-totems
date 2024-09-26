@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FEF",
+    "ECE",
+    "FEF"
+  ],
+  "key": {
+    "F": {
+      "item": "better-totems:totem_fragment"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "C": {
+      "item": "better-totems:voodoo_totem"
+    }
+  },
+  "result": {
+    "item": "better-totems:respawn_altar"
+  }
+}

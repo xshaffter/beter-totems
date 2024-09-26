@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "better-totems:inventory_totem"
+    },
+    "title": "God's rage",
+    "description": "The god of death went mad",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "rewards": {
+    "recipes": [
+      "better-totems:inventory_totem"
+    ]
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "better-totems:dummy"
+    }
+  }
+}

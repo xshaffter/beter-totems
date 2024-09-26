@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FEF",
+    "ECE",
+    "FEF"
+  ],
+  "key": {
+    "F": {
+      "item": "better-totems:totem_fragment"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "C": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "better-totems:voodoo_totem"
+  }
+}
