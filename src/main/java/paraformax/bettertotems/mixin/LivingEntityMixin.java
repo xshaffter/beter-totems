@@ -7,14 +7,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -32,11 +30,8 @@ import paraformax.bettertotems.items.ModItems;
 import paraformax.bettertotems.items.totems.CustomTotem;
 import paraformax.bettertotems.items.totems.InventoryTotem;
 import paraformax.bettertotems.items.totems.NormalTotem;
-import paraformax.bettertotems.items.totems.VoodooTotem;
 import paraformax.bettertotems.util.BaseTotem;
 import paraformax.bettertotems.util.IEntityDataSaver;
-import paraformax.bettertotems.util.PlayerEntityBridge;
-import paraformax.bettertotems.util.complexManagers.difficulty.DeathGodManager;
 
 import static paraformax.bettertotems.items.totems.CustomTotem.isCustomTotem;
 
@@ -121,7 +116,7 @@ public abstract class LivingEntityMixin extends Entity implements IEntityDataSav
     public void onApplyDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> callback) {
         float returnedAmount = amount;
 
-        if (source.isOf(DamageTypes.OUT_OF_WORLD)) {
+        if (source.isOutOfWorld()) {
             ItemStack offhand_stack = this.getStackInHand(Hand.OFF_HAND);
             ItemStack main_hand_stack = this.getStackInHand(Hand.MAIN_HAND);
 
@@ -143,7 +138,7 @@ public abstract class LivingEntityMixin extends Entity implements IEntityDataSav
         if (this.hasStatusEffect(ModEffects.NO_ARMOR)) {
             callback.setReturnValue(returnedAmount);
             return;
-        } else if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
+        } else if (!source.bypassesArmor()) {
             this.damageArmor(source, returnedAmount);
             returnedAmount = DamageUtil.getDamageLeft(returnedAmount, this.getArmor(), (float) this.getAttributeValue(EntityAttributes.GENERIC_ARMOR_TOUGHNESS));
         }
@@ -181,27 +176,16 @@ public abstract class LivingEntityMixin extends Entity implements IEntityDataSav
                 totem_item = new NormalTotem();
             }
 
-            boolean resurrect = PlayerEntityBridge.hasAdvancement(this, "gods_enemy") || totem_item.canRevive(source, this);
+            boolean resurrect = totem_item.canRevive(source, this);
 
             if (resurrect) {
-                DeathGodManager.performStateUpdate(this);
-
                 totem_item.performResurrection(this);
                 totem.decrement(1);
                 totem_item.postRevive(this);
-                PlayerEntityBridge.increaseResurrection(this);
             }
 
             callback.setReturnValue(resurrect);
             return;
-        } else {
-            var voodoo = new VoodooTotem();
-            if (voodoo.canRevive(source, this)) {
-                voodoo.performResurrection(this);
-                voodoo.postRevive(this);
-                callback.setReturnValue(true);
-                return;
-            }
         }
 
         callback.setReturnValue(false);

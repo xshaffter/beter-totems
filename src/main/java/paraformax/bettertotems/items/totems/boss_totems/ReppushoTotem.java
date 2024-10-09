@@ -1,4 +1,4 @@
-package paraformax.bettertotems.items.totems;
+package paraformax.bettertotems.items.totems.boss_totems;
 
 import com.google.common.collect.ImmutableMultimap;
 import net.minecraft.client.gui.screen.Screen;
@@ -13,13 +13,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import paraformax.bettertotems.items.totems.PerfectTotem;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class TankTotem extends PerfectTotem {
+public class ReppushoTotem extends PerfectTotem {
 
-    public TankTotem() {
+    public ReppushoTotem() {
         super(Arrays.asList(
                 new StatusEffectInstance(StatusEffects.REGENERATION, 20 * 15, 0),
                 new StatusEffectInstance(StatusEffects.RESISTANCE, 20 * 15, 1)

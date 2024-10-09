@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.util.Identifier;
 import paraformax.bettertotems.BetterTotems;
@@ -45,7 +44,7 @@ public class DummyCriterion implements Criterion<DummyCriterion.Conditions> {
     public static class Conditions extends AbstractCriterionConditions {
         private final ItemPredicate item;
 
-        public Conditions(LootContextPredicate player, ItemPredicate item) {
+        public Conditions(EntityPredicate.Extended player, ItemPredicate item) {
             super(DummyCriterion.ID, player);
             this.item = item;
         }

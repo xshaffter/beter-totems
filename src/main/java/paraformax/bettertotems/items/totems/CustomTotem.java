@@ -11,6 +11,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
@@ -36,7 +37,7 @@ public abstract class CustomTotem extends Item implements BaseTotem {
             List<StatusEffectInstance> curses,
             Multimap<EntityAttribute, EntityAttributeModifier> statModifiers
     ) {
-        super(settings.rarity(Rarity.EPIC).maxCount(1));
+        super(settings.rarity(Rarity.EPIC).maxCount(1).group(ItemGroup.COMBAT));
         this.resurrectionProbability = resurrectionProbability;
         PASSIVE_EFFECTS = effects;
         PASSIVE_CURSES = curses;
